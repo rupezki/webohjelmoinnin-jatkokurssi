@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+<style>
+
+</style>
+<script>
+$(document).ready(function() {
+
+    $("#nappi").click(function () {
+        $("#lista").html("");
+        nimi = $("#nimi").val();
+        osoite = $("#osoite").val();
+        asiakastyyppi = $("#asiakastyyppi").val();
+    $.get("http://localhost:3002/Asiakas", function(data){
+        for (var i = 0, len = data.length; i < len; i++) {
+            $("#lista").append(
+                "<tr>" +
+                "<td>"+data[i].AVAIN+"</td>" +
+                "<td>"+data[i].NIMI+"</td>" +
+                "<td>"+data[i].OSOITE+"</td>" +
+                "<td>"+data[i].ASTY_AVAIN+"</td>" +
+                "</tr>"
+            )
+        }
+    });
+});
+
+$("#nappi2").click(function () {
+        $("#lista").html("");
+        asiakastyyppi = $("#asiakastyyppi").val();
+    $.get("http://localhost:3002/Types", function(data){
+        for (var i = 0, len = data.length; i < len; i++) {
+            $("#lista").append(
+                "<tr>" +
+                "<td>"+data[i].ASTY_AVAIN+"</td>" +
+                "</tr>"
+            )
+        }
+    });
+});
+});
+
+
+</script>
+</head>
+<body>
+
+
+
+<p>Nimi: <input type="text" id="nimi"></p>
+<p>Osoite: <input type="text" id="osoite"></p>
+<p>Asiakastyyppi: <input type="text" id="asiakastyyppi"></p>
+
+<button id="nappi">Hae asiakkaat</button>
+<button id="nappi2">Hae hakuehdoilla</button>
+<br>
+<table>
+    <thead>
+        <tr>
+            <th>Avain</th>
+            <th>Nimi</th>
+            <th>Osoite</th>
+            <th>Asiakastyyppi</th>
+        </tr>
+    </thead>
+    <tbody id="lista">
+        
+    </tbody>
+</table>
+</body>
+</html>
